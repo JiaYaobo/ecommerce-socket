@@ -27,13 +27,14 @@ io.on("connection", (socket) => {
     io.emit("getUsers", users);
   });
 
-  socket.on("sendMessage", ({ senderId, receiverId, text }) => {
+  socket.on("sendMessage", ({ senderId, receiverId, text, created_at }) => {
     const user = getUser(receiverId);
     console.log(user);
     console.log(text);
     io.to(user.socketId).emit("getMessage", {
       senderId,
       text,
+      created_at,
     });
   });
 
